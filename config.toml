@@ -1,0 +1,82 @@
+baseURL = 'https://kareemelsadek.github.io/'
+languageCode = 'en-us'
+title = 'whoami'
+theme= "hugo-coder"
+buildDrafts=true
+
+[params.googleTagManager]
+    id = "gid"
+
+[params.fathomAnalytics]
+  siteID = "ABCDE"
+  serverURL = "cdn.usefathom.com" 
+     
+[params.plausibleAnalytics]
+  domain = "alsadeq.github.io"
+  serverURL = "plausible.io" # (optionnal) Replace if you use a custom domain
+
+[params.goatCounter]
+  code = "55555"
+
+[params.matomo]
+    siteID = "ABCDE"
+    serverURL = "analytics.alsadeq.github.io"
+
+[params.applicationInsights]
+    connectionString = "connectionstring"
+
+[params]
+  commentoURL = "https://cdn.commento.io"
+  author = "Kareem ALsadeq"
+  info = "Penetration tester & Bug hunter"
+  description = "Kareem Alsadeq's personal website"
+  keywords = "blog,pentester,personal"
+  avatarurl = "/Arab.jpg"
+  favicon_32 = "/favicon-32x32.png"
+  favicon_16 = "/favicon-16x16.png"
+  enableTwemoji = true
+  colorScheme = "auto"
+  hidecolorschemetoggle = false
+
+[taxonomies]
+   series = "series" 
+
+
+#social
+[[params.social]]
+  name = "Github"
+  icon = "fa fa-github fa-2x GITHUB"
+  weight = 1
+  url = "https://github.com/KareemElsadek/"
+[[params.social]]
+  name = "Linked-in"
+  icon = "fa fa-linkedin fa-2x"
+  weight = 2
+  url = "https://www.linkedin.com/in/alsadeq95/"
+[[params.social]]
+  name = "Twitter"
+  icon = "fa fa-twitter fa-2x"
+  weight = 3
+  url = "https://twitter.com/AlsadeqKareem"
+[[params.social]]
+  name = "HackTheBox"
+  icon = "fa fa-cube fa-2x HackTheBox"
+  weight = 3
+  url = "https://app.hackthebox.com/profile/285884"
+[[params.social]]
+  name = "Hackerone"
+  icon = "fa fa-2x hack1"
+  weight = 3
+  url = "https://hackerone.com/alsadeq"
+
+# Menu links
+
+[[menu.main]]
+  name = "Blogs"
+  weight = 1
+  url  = "posts/"
+[[menu.main]]
+  name = "About"
+  weight = 2
+  url = "about/"
+
