@@ -4,63 +4,83 @@
 ![](/graph.png)
 # What is GraphQL?
 
-GraphQL is a data query language developed by Facebook. It acts as an alternative to the [REST API](https://www.ibm.com/cloud/learn/rest-apis).\
-→ REST APIs communicate via HTTP requests to perform standard database functions like creating, reading, updating, and deleting records (CRUD) within a resource.\
-→ Rest APIs require the client to send multiple requests to different endpoints on the API to query data from the database.\
-→ With GraphQL, you only need to send one request to query the backend.\
-→ For REST API calls, you need to know the URL of each resource, the HTTP methods used on each resource, and the schema of each resource.\
-→ For GraphQL calls, you need to know only the URL of the API and the schema.\
-**An example of a REST API call**\
-If you want to register a user, you send a request to [/api/v1/register]. If you want to sign-in, you send a request to [/api/v1/login]. And if you want to reset your password, you send another request to [/api/v1/reset-password].
-Every resource has its own schema and own method. But in GraphQL, there is only one endpoint that you can send all requests to it! (/graphql?q=)\
-**The components of the GraphQL**\
-→ server-side: where it resolves the operations and provides the requested data/operation.\
-→ client-side: any application that wants to interact with the GraphQL API to do some operations.\
-**there are 3 main operations:**\
-→ Query: fetching data using specifically defined query operations.\
-→ Mutations: for modifying any data (creating, updating, or deleting) in a database using operations.\
-→ Subscriptions: for receiving real-time messages from the back-end.\
-**we can see how GraphQL works from: [Examples of GraphQL structure](https://exzandar.home.blog/2022/06/22/graphql-the-graphql/)**
+GraphQL is a data query language developed by Facebook. It acts as an alternative to the [REST API](https://www.ibm.com/cloud/learn/rest-apis).
+
+| REST API      | GraphQL |
+| ----------- | ----------- |
+|• Require the client to send multiple requests to different endpoints on the API to query data from the database.    | • you only need to send one request to query the backend.
+  • You need to know the URL of each resource, the HTTP methods used on each resource, and the schema of each resource.       | • you need to know only the URL of the API and the schema.
+
+![](/restvsgraph.jpeg)
+
+**REST API call:**\
+• Regiter a user: send request to [/api/v1/register].\
+• sign-in: send a request to [/api/v1/login].\
+• Reset the password: send another request to [/api/v1/reset-password].\
+**Every resource has its own schema and own method.**
+
+**GraphQL call:**\
+• There is only one endpoint that you can send all requests to it! (/graphql?q=)
+
+**Components of the GraphQL:**
+| server-side      | client-side |
+| ----------- | ----------- |
+| it resolves the operations and provides the requested data/operation.      | application that wants to interact with the GraphQL API       |
+
+
+
+**GraphQL has 3 main operations:**\
+• Query: fetching data using specifically defined query operations.\
+• Mutations: for modifying any data (creating, updating, or deleting) in a database using operations.\
+• Subscriptions: for receiving real-time messages from the back-end.
+
 
 ---
 
 # GraphQL Pentesting
-By default, the endpoint of the GraphQL API will be one of the following:
-["/graphql", "/graphiql", "/graphql/console", "/graphql.php", "/graphiql.php", "/explorer", "/altair", "/playground", "/graphql-explorer", "/graphiql/"]\
-• You can test queries through [Swapi-GrapthQL](http://graphql.org/swapi-graphql)\
-**__Introspection__**\
-→ It’s often useful to ask a GraphQL schema for information about what queries it supports.
-→ With introspection, you can get all the details about the GraphQL schema, including fields, types, sub-fields, and more.\
-The introspection system is enabled by default.\
-→ simple examples:\
-• {__schema{types{name,fields{name}}}} #getting fields and subfields ![](/graphql-1.png)
-• { __schema{types{name,fields{name,args{name,description,type{name,kind,ofType{name,kind}}}}}}} #extracting all the types, it’s fields, and it’s arguments ![](/graphql-2.png)
-• After knowing the fields and subfields we need to query them to get the data :D\
+• **Endpoint of the GraphQL:**\
+[\
+"/graphql", "/graphiql", "/graphql/console", "/graphql.php", "/graphiql.php", "/explorer", "/altair", "/playground", "/graphql-explorer", "/graphiql/"\
+]
+
+• You can test queries through [Swapi-GrapthQL](http://graphql.org/swapi-graphql)
+
+### __Introspection__
+• allows to query all information related to the supported schema and queries on a GraphQL server instance like: fields, types, sub-fields and more.\
+•The introspection system is enabled by default, but it can be disabled.\
+__Simple examples:__\
+• {__schema{types{name,fields{name}}}} #getting fields and subfields ![](/graphql-1.png)\
+• { __schema{types{name,fields{name,args{name,description,type{name,kind,ofType{name,kind}}}}}}} #extracting all the types, it’s fields, and it’s arguments ![](/graphql-2.png)\
+• After knowing the fields and subfields we need to query them to get the data :D
 * __EX:__ /graphql?q={Users {id, name, and nickname}}
 
 **• If the introspection is off!**\
-→  So we try to get information about the schema from the resulted errors, such as the following:\
-query: query={users}\
-error: "Cannot query field \"users\" on type \"Query\". Did you mean \"imUsers\" or \"orders\"?"\
-Now we have a correct field name from the error "imUsers"!\
-query: query={imUsers{ids}}\
-error: "Cannot query field \"ids\" on type \"ImUser\". Did you mean \"id\"?"\
-now we get subfield of imUsers field, and so on reaching to the dumping.
+•  So we try to get information about the schema from the resulted errors, such as the following:\
+query: query={users} ![](/graph-errors1.png)\
+So now we got 2 fields :D\
+query: query={imUsers{ids}} ![](/graphid.png)\
+we got a subfield of imUsers field\
+query: query={imUsers{id,username}} ![](/graphuser.png)\
+got another 2 subfiles and so on, reaching to the dumping.
 
 **Possible attacks on GraphQL**\
 There are many vulnerabilities that can be raised from GraphQL mis-configuration, such as the following:\
-→ BAC and IDOR.\
-→ Information Disclosure.\
-→ SQL Injection.\
-→ CUD “creating, updating, and deleting” data via abusing mutations.\
-→ Authorization bypass.\
-→ Batching Attacks.\
+• Information Disclosure.\
+• IDOR.\
+• SQL Injection.\
+• CUD “creating, updating, and deleting” data via abusing mutations.\
+• Authorization bypass.\
+• Broken access control.
+
+**Some attacks senarios**\
+• [SSRF from GraphQL with enabled Introspection](https://0xdf.gitlab.io/2021/05/29/htb-cereal.html#graphql-enumeration)
+
 
 ---
 
 ## **Refrences:**
 + https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/graphql
-+ https://exzandar.home.blog/2022/06/22/graphql-the-graphql/ 
++ https://owasp.org/www-chapter-pune/meetups/2021/June/Attacking%20GraphQL%20APIs.pptx
 + https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL
-
++ https://exzandar.home.blog/2022/06/22/graphql-the-graphql/
 
