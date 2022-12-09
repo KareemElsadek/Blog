@@ -1,6 +1,5 @@
 
 
-
 ![](/graph.png)
 # What is GraphQL?
 
@@ -50,9 +49,11 @@ GraphQL is a data query language developed by Facebook. It acts as an alternativ
 •The introspection system is enabled by default, but it can be disabled.\
 __Simple examples:__\
 • {__schema{types{name,fields{name}}}} #getting fields and subfields ![](/graphql-1.png)\
-• { __schema{types{name,fields{name,args{name,description,type{name,kind,ofType{name,kind}}}}}}} #extracting all the types, it’s fields, and it’s arguments ![](/graphql-2.png)\
-• After knowing the fields and subfields we need to query them to get the data :D
-* __EX:__ /graphql?q={Users {id, name, and nickname}}
+• { __schema{types{name,fields{name,args{name,description,type{name,kind,ofType{name,kind}}}}}}} #extracting all the types, it’s fields, and it’s arguments ![](/graphql-2.png)
+
+• __At this point, there is no vulnerability!__\
+• After knowing the fields and subfields we need to query them to get the data :D\
+__EX:__ /graphql?q={Users{id,name,nickname}}
 
 **• If the introspection is off!**\
 •  So we try to get information about the schema from the resulted errors, such as the following:\
@@ -75,7 +76,6 @@ There are many vulnerabilities that can be raised from GraphQL mis-configuration
 **Some attacks senarios**\
 • [SSRF from GraphQL with enabled Introspection](https://0xdf.gitlab.io/2021/05/29/htb-cereal.html#graphql-enumeration)
 
-
 ---
 
 ## **Refrences:**
@@ -84,3 +84,13 @@ There are many vulnerabilities that can be raised from GraphQL mis-configuration
 + https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL
 + https://exzandar.home.blog/2022/06/22/graphql-the-graphql/
 
+<script>
+	    document.querySelector("title").textContent = "GraphQL";
+</script>
+<head>
+ <meta property="og:image" content="/graph.png" />
+ <meta property="og:type" content="website" />
+ <meta property="og:url" content="https://kareemelsadek.github.io/posts/graphql"/>
+ <meta property="og:title" content="GraphQL" />
+ <meta property="og:description" content="Intro to GraphQL Pentesting"/>	
+</head>

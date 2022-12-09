@@ -1,6 +1,6 @@
 baseURL = 'https://kareemelsadek.github.io/'
 languageCode = 'en-us'
-title = 'whoami'
+title = 'ALsadeq'
 theme= "hugo-coder"
 buildDrafts=true
 
@@ -20,7 +20,7 @@ buildDrafts=true
 
 [params.matomo]
     siteID = "ABCDE"
-    serverURL = "analytics.alsadeq.github.io"
+    serverURL = "kareemelsadek.github.io"
 
 [params.applicationInsights]
     connectionString = "connectionstring"
@@ -80,3 +80,5 @@ buildDrafts=true
   weight = 2
   url = "about/"
 
+[markup.goldmark.renderer]
+  unsafe = true

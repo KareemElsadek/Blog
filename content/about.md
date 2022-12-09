@@ -18,3 +18,8 @@
 *  **Former CTF player & developer at 0xL4ugh team** 
 *  **Valid vulns at IBM** 
 
+
+---
+<script>
+	    document.querySelector("title").textContent = "About";
+</script>
